@@ -14,10 +14,22 @@ Items.prototype.add = function(name) {
   return item;
 };
 
+Items.prototype.getItemByID = function(id) {
+  var item = undefined;
+  for (i = 0; i < this.items.length; i++) {
+    if (this.items[i].id == id) {
+      item = this.items[i];
+      break;
+    }
+  }
+  return item;
+};
+
 var items = new Items();
 items.add('Broad beans');
 items.add('Tomatoes');
 items.add('Peppers');
+items.add('Dogs');
 
 var app = express();
 app.use(express.static('public'));
@@ -35,6 +47,17 @@ app.post('/items', jsonParser, function(req, res) {
 
   var item = items.add(req.body.name);
   res.status(201).json(item);
+});
+
+app.delete('/items/:id', function(req, res) {
+  var id = req.params.id;
+  var item = items.getItemByID(id);
+  if (!item) {
+    res.json({"error": "Invalid ID supplied.", "id": id, "item": "item"});
+  } else {
+    res.status(201).json(item);
+  }
+
 });
 
 app.listen(process.env.PORT || 8080);
