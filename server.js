@@ -44,7 +44,6 @@ app.post('/items', jsonParser, function(req, res) {
   if (!req.body) {
     return res.sendStatus(400);
   }
-
   var item = items.add(req.body.name);
   res.status(201).json(item);
 });
@@ -57,6 +56,18 @@ app.delete('/items/:id', function(req, res) {
   } else {
     res.status(201).json(item);
   }
+});
+
+app.put('/items/:id', jsonParser, function(req, res) {
+  var id = req.params.id;
+  var name = req.body.name;
+  var item = items.getItemByID(id);
+  if (!item) {
+    item = items.add(name);
+  } else {
+    item.name = name;
+  }
+  res.status(201).json(item);
 
 });
 
