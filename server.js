@@ -52,7 +52,7 @@ app.delete('/items/:id', function(req, res) {
   var id = req.params.id;
   var item = items.getItemByID(id);
   if (!item) {
-    res.json({"error": "Invalid ID supplied.", "id": id, "item": "item"});
+    res.json({"error": "Invalid ID supplied.", "id": id});
   } else {
     res.status(201).json(item);
   }
