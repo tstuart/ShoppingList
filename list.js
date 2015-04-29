@@ -27,4 +27,4 @@ Items.prototype.getItemByID = function(id) {
 };
 
 // export Items Class
-exports.ShoppingList = Items;
+exports.Items = Items;
