@@ -59,7 +59,6 @@ app.delete('/items/:id', function(req, res) {
 // route to put an item in the list.  This will
 // either update an existing item or add a new one
 app.put('/items/:id', function(req, res) {
-  console.log(req.body.name);
   var id = req.params.id;
   var name = req.body.name;
   var item = shoppingList.getItemByID(id);
