@@ -7,4 +7,5 @@ describe('Shopping List', function() {
   it('should add an item on post');
   it('should edit an item on put');
   it('should delete an item on delete');
+  it('should return json error message when attempting to delete item that does not exist')
 });
