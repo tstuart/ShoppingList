@@ -46,10 +46,10 @@ app.post('/items', function(req, res) {
 
 // route to delete an item from the list
 app.delete('/items/:id', function(req, res) {
-  var id = req.params.id;
+  var id = Number(req.params.id);
   var item = shoppingList.getItemByID(id);
   if (!item) {
-    res.json({"error": "Invalid ID supplied.", "id": id});
+    res.status(400).json({"error": "Invalid ID supplied.", "id": id});
   } else {
     shoppingList.items.splice(shoppingList.items.indexOf(item),1);
     res.status(201).json(item);
@@ -59,12 +59,12 @@ app.delete('/items/:id', function(req, res) {
 // route to put an item in the list.  This will
 // either update an existing item or add a new one
 app.put('/items/:id', function(req, res) {
-  var id = req.params.id;
+  var id = Number(req.params.id);
   var name = req.body.name;
   var item = shoppingList.getItemByID(id);
   if (!item) {
     item = shoppingList.add(name);
-    item.id = Number(id);
+    item.id = id;
   } else {
     item.name = name;
   }

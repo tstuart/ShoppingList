@@ -89,6 +89,41 @@ describe('Shopping List', function() {
     });
   });
   
-  it('should delete an item on delete');
-  it('should return json error message when attempting to delete item that does not exist')
+  it('should delete an item on delete', function(done) {
+    chai.request(app)
+      .delete('/items/1')
+      .end(function(err, res) {
+      res.should.have.status(201);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('id');
+      res.body.should.have.property('name');
+      res.body.id.should.be.a('number');
+      res.body.name.should.be.a('string');
+      res.body.id.should.equal(1);
+      res.body.name.should.equal('Tomatoes');
+      // the list length should be back to 4
+      items.items.should.have.length(4);
+      done();
+    });
+  });
+  
+  it('should return json error message when attempting to delete item that does not exist', function(done) {
+    chai.request(app)
+      .delete('/items/21')
+      .end(function(err, res) {
+      res.should.have.status(400);
+      res.should.be.json;
+      res.body.should.be.a('object');
+      res.body.should.have.property('id');
+      res.body.should.have.property('error');
+      res.body.id.should.be.a('number');
+      res.body.error.should.be.a('string');
+      res.body.id.should.equal(21);
+      res.body.error.should.equal('Invalid ID supplied.');
+      // the list length should not have changed
+      items.items.should.have.length(4);
+      done();
+    });
+  });
 });
