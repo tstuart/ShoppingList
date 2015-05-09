@@ -42,6 +42,7 @@ describe('Shopping List', function() {
       res.body.name.should.be.a('string');
       res.body.id.should.equal(3);
       res.body.name.should.equal('pizza');
+      items.items.should.have.length(4);
       done();
     });
   });
@@ -60,6 +61,9 @@ describe('Shopping List', function() {
       res.body.name.should.be.a('string');
       res.body.id.should.equal(0);
       res.body.name.should.equal('pizza');
+      // the post test added an item the 
+      // length should now be 4
+      items.items.should.have.length(4);
       done();
     });
   });
@@ -78,6 +82,9 @@ describe('Shopping List', function() {
       res.body.name.should.be.a('string');
       res.body.id.should.equal(10);
       res.body.name.should.equal('pizza');
+      // the post test added an item as di
+      // this test so length should now be 5
+      items.items.should.have.length(5);
       done();
     });
   });
