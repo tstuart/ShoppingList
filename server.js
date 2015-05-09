@@ -64,7 +64,7 @@ app.put('/items/:id', function(req, res) {
   var item = shoppingList.getItemByID(id);
   if (!item) {
     item = shoppingList.add(name);
-    item.id = id;
+    item.id = Number(id);
   } else {
     item.name = name;
   }
@@ -74,3 +74,7 @@ app.put('/items/:id', function(req, res) {
 
 // Set app to listen for requests
 app.listen(process.env.PORT || 8080);
+
+exports.app = app;
+exports.items = list;
+
